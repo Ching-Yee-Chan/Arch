@@ -4,6 +4,7 @@ import numpy as np
 import soundfile as sf
 import json
 from transformers import AutoModel, AutoFeatureExtractor
+from decoder.pretrained import WavTokenizer
 
 from arch_eval import Model, ClassificationModel
 from arch_eval import ClassificationDataset
@@ -24,15 +25,16 @@ from arch_eval import SLURP
 from arch_eval import EMOVO
 
 from configs.w2v2_wrapper import Wav2Vec2ModelWrapper
+from configs.codec_wrapper import CodecWrapper
 
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model', type=str, default='facebook/wav2vec2-base')
+parser.add_argument('--model', type=str, default='wavtokenizer')
 parser.add_argument('--device', type=str, default='cuda')
 parser.add_argument('--max_epochs', type=int, default=200)
 parser.add_argument('--verbose', default=False, action = 'store_true')
-parser.add_argument('--tsv_logging_file', type=str, default='results/hf_models.tsv')
+parser.add_argument('--tsv_logging_file', type=str, default='results/wavtokenizer.tsv')
 parser.add_argument('--n_iters', type=int, default=1)
 parser.add_argument('--data_config_file', type=str, default='configs/datasets_config.json')
 parser.add_argument('--attentive_pooling', default=False, action = 'store_true')
@@ -45,9 +47,9 @@ args = parser.parse_args()
 # example command:
 # python evaluate_models.py --model facebook/wav2vec2-base --device cuda --max_epochs 200 --verbose --tsv_logging_file results/hf_models.tsv --n_iters 1 --data_config_file configs/datasets_config.json --enabled_datasets esc50 us8k fma_small magnatagatune irmas ravdess audio_mnist
 
-print("------------------------------------")
-print(f"Evaluating model: {args.model}")
-print("------------------------------------")
+# print("------------------------------------")
+# print(f"Evaluating model: {args.model}")
+# print("------------------------------------")
 
 '''
 ************************************************************************************************
@@ -56,13 +58,13 @@ print("------------------------------------")
 '''
 
 # Load model
-audio_model = AutoModel.from_pretrained(args.model)
-feature_extractor = AutoFeatureExtractor.from_pretrained(args.model)
-audio_model = audio_model.to(args.device)
-model_parameters = sum(p.numel() for p in audio_model.parameters())
+config_path = "/mnt/users/hccl.local/jkzhao/projects/WavTokenizer/configs/wavtokenizer_smalldata_frame75_3s_nq1_code4096_dim512_kmeans200_attn.yaml"
+model_path = "/mnt/users/hccl.local/jkzhao/projects/WavTokenizer/result/pretrain/wavtokenizer_large_speech_320_24k.ckpt"
+codec = WavTokenizer.from_pretrained0802(config_path, model_path)
+codec = codec.to(args.device)
+model_parameters = sum(p.numel() for p in codec.parameters())
 tsv_lines = [] 
 os.makedirs(os.path.dirname(args.tsv_logging_file), exist_ok=True)
-
 
 # load datasets info
 with open(args.data_config_file) as f:
@@ -72,8 +74,8 @@ enabled_datasets = args.enabled_datasets
 
 for dataset_name in enabled_datasets:
     
-    model = Wav2Vec2ModelWrapper(audio_model, feature_extractor, args.device, max_length=datasets_info[dataset_name]["max_length_seconds"]*16_000)
-    
+    model = CodecWrapper(codec, args.device, max_length=datasets_info[dataset_name]["max_length_seconds"]*24_000)
+
     if dataset_name == "esc50":
         evaluator = ESC50(datasets_info[dataset_name]["path"], verbose=args.verbose, precompute_embeddings=args.precompute_embeddings)
     elif dataset_name == "us8k":
@@ -115,7 +117,7 @@ for dataset_name in enabled_datasets:
             mode=mode, 
             device=args.device, 
             batch_size=32, 
-            max_num_epochs=args.max_epochs, 
+            max_num_epochs=args.max_epochs
         )
 
         if args.verbose:

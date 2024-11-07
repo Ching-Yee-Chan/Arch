@@ -173,15 +173,28 @@ class ClassificationDataset(torch.utils.data.Dataset):
             label = self.labels[idx]
 
             # Load audio and resample it if necessary
+            # while True:
+            #     try:
+            #         audio, sr = torchaudio.load(audio_path)
+            #         break
+            #     except Exception as e:
+            #         print(f"Error loading {audio_path}")
+            #         print(e)
+            #         idx = np.random.randint(len(self))
+            #         audio_path = self.audio_paths[idx]
             audio, sr = torchaudio.load(audio_path)
+            # audio = audio.to("cuda")
 
             if sr != self.sampling_rate:
+                # audio = torchaudio.transforms.Resample(sr, self.sampling_rate).to("cuda")(audio)
                 audio = torchaudio.transforms.Resample(sr, self.sampling_rate)(audio)
         else:
             audio = self.audios[idx]
             label = self.labels[idx]
 
         # if audio is 1, length - remove first dimension
+        if audio.shape[0] == 2:
+            audio = torch.mean(audio, dim=0)
         if audio.shape[0] == 1:
             audio = audio[0]
 

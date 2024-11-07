@@ -16,3 +16,5 @@ configs/ssast_wrapper.py
 arch_eval/evaluation/sequence/*
 SSAST.md
 evaluate_models.sh
+audio_datasets
+__pycache__

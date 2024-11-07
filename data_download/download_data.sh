@@ -67,6 +67,7 @@ cd ..
 # -------------------------- MagnaTagATune --------------------------
 echo "Downloading MagnaTagATune dataset..."
 mkdir magnatagatune
+cd magnatagatune
 wget https://mirg.city.ac.uk/datasets/magnatagatune/clip_info_final.csv
 wget https://mirg.city.ac.uk/datasets/magnatagatune/mp3.zip.001
 wget https://mirg.city.ac.uk/datasets/magnatagatune/mp3.zip.002

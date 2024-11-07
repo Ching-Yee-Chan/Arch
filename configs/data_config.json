@@ -1,21 +1,21 @@
 {
     "esc50": {
-        "path": "PATH_TO_AUDIO_DATASETS/esc50/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/esc50/",
         "max_length_seconds": 5,
         "is_multilabel": false
     },
     "us8k": {
-        "path": "PATH_TO_AUDIO_DATASETS/UrbanSound8K/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/UrbanSound8K/",
         "max_length_seconds": 5,
         "is_multilabel": false
     },
     "fsd50k": {
-        "path": "PATH_TO_AUDIO_DATASETS/fsd50k/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/fsd50k/",
         "max_length_seconds": 10,
         "is_multilabel": true
     },
     "vivae": {
-        "path": "PATH_TO_AUDIO_DATASETS/VIVAE/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/VIVAE/",
         "max_length_seconds": 5,
         "is_multilabel": false
     },
@@ -25,25 +25,25 @@
 
 
     "fma_small": {
-        "path": "PATH_TO_AUDIO_DATASETS/fma_small/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/fma_small/",
         "max_length_seconds": 30,
         "is_multilabel": false
     },
 
     "magna_tag_a_tune": {
-        "path": "PATH_TO_AUDIO_DATASETS/magnatagatune/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/magnatagatune/",
         "max_length_seconds": 30,
         "is_multilabel": true
     },
 
     "irmas": {
-        "path": "PATH_TO_AUDIO_DATASETS/irmas/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/irmas/",
         "max_length_seconds": 5,
         "is_multilabel": true
     },
 
     "medleydb": {
-        "path": "PATH_TO_AUDIO_DATASETS/medleydb/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/medleydb/",
         "max_length_seconds": 3,
         "is_multilabel": false
     },
@@ -55,24 +55,24 @@
 
 
     "ravdess": {
-        "path": "PATH_TO_AUDIO_DATASETS/ravdess/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/ravdess/",
         "max_length_seconds": 5,
         "is_multilabel": false
     },
 
     "audio_mnist": {
-        "path": "PATH_TO_AUDIO_DATASETS/AudioMNIST/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/AudioMNIST/",
         "max_length_seconds": 5,
         "is_multilabel": false
     },
 
     "slurp": {
-        "path": "PATH_TO_AUDIO_DATASETS/slurp/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/slurp/",
         "max_length_seconds": 10,
         "is_multilabel": false
     }, 
     "emovo": {
-        "path": "PATH_TO_AUDIO_DATASETS/emovo/",
+        "path": "/mnt/users/hccl.local/jkzhao/projects/ARCH/data_download/audio_datasets/emovo/",
         "max_length_seconds": 5,
         "is_multilabel": false
     }
